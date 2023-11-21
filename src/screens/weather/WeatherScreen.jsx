@@ -10,7 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import InputField from '../../components/input/InputField';
-import styles from './styles';
+
 import fetchWeatherData from '../../api/api';
 import {useNavigation} from '@react-navigation/core';
 import routes from '../../constants/routes';
@@ -52,6 +52,7 @@ const WeatherScreen = () => {
   };
 
   const handleSearch = async () => {
+    setLoading(true); // Set loading to true before making the API call
     const trimmedQuery = searchQuery.trim();
 
     if (trimmedQuery === '') {
@@ -60,18 +61,19 @@ const WeatherScreen = () => {
       try {
         const data = await fetchWeatherData(trimmedQuery);
 
-        console.log('Search Weather Data:', data);
-
         if (data) {
           setWeatherData(data);
           setApiData(data);
+          setLoading(false);
         } else {
           setWeatherData(null);
           setApiData(null);
+          setLoading(false);
         }
       } catch (error) {
         setWeatherData(null);
         setApiData(null);
+        setLoading(false);
       }
     }
   };
@@ -88,7 +90,7 @@ const WeatherScreen = () => {
               placeholderTextColor={colors.WHITE}
               value={searchQuery}
               onChangeText={text => setSearchQuery(text)}
-              onEndEditing={handleSearch}
+              onSubmitEditing={handleSearch}
             />
 
             {apiData && weatherData ? (
