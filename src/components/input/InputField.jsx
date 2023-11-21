@@ -6,7 +6,7 @@ import images from '../../constants/images';
 const InputField = ({
   value,
   onChangeText,
-  onEndEditing,
+  onSubmitEditing,
   placeholder,
   keyboardType,
   placeholderTextColor,
@@ -18,7 +18,7 @@ const InputField = ({
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
-      onEndEditing={onEndEditing}
+      onSubmitEditing={onSubmitEditing}
       keyboardType={keyboardType}
       placeholderTextColor={placeholderTextColor}
     />
